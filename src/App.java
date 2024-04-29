@@ -6,7 +6,9 @@ public class App {
      * @param args
      */
     public static void main(String[] args) throws BadInputException {
-        /*Sacnner 클래스 객체 생성  */
+       //Level1-3
+        /*
+        *//*Sacnner 클래스 객체 생성  *//*
         //왜 사용? : 매번 입력마다 new Scanner(System.in)아라는 긴 내용을 쓰는건 귀찮음 + 코드 중복으로
         //Scanner 클래스의 객체를 하나 생성해두어 이를 사용하는 것
         Scanner sc = new Scanner(System.in);
@@ -53,5 +55,66 @@ public class App {
             throw new BadInputException(); //예외처리
         }
         System.out.println(result);
+        */
+
+        Scanner sc = new Scanner(System.in);
+
+        int result = 0;
+        int firstNum = 0;
+        int secondNum = 0;
+        String operator;
+
+        while (true) {
+            System.out.println("첫 번째 정수를 입력하세요 : ");
+            if (sc.hasNextInt()) {
+                //첫 번째 정수를 입력 받음
+                firstNum = sc.nextInt();
+            } else {
+                // 정수가 아닐 때
+                throw new BadInputException();
+            }
+            System.out.println("두 번째 정수를 입력하세요 : ");
+            if (sc.hasNextInt()) {
+                // 두 번째 정수를 입력 받음
+                secondNum = sc.nextInt();
+            } else {
+                // 정수가 아닐 때
+                throw new BadInputException();
+            }
+            System.out.println("연산자를 입력하세요 (exit 입력 시 종료) ");
+            //Scanner 클래스 객체의 sc에 next()를 사용하여 입력 다음에 오는 토큰을 읽음
+            operator = sc.next();
+            //operator의 문자열이 exit 일때 종료
+            if (operator.equals("exit")) {
+                break;
+            }
+            //연산자에 따라 다른 기능 수행
+            switch (operator) {
+                case "+":
+                    result = firstNum + secondNum;
+                    break;
+                case "-":
+                    result = firstNum - secondNum;
+                    break;
+                case "*":
+                    result = firstNum * secondNum;
+                    break;
+                case "/":
+                    //연산자가 / 일 때 두 번째로 입력받는 수가 0이 아니라면
+                    if (secondNum != 0) {
+                        //나눗셈
+                        result = firstNum / secondNum;
+                    } else { //두 번째로 입력받는 수가 0일 때
+                        System.out.println("0으로 나눌 수 없습니다.");
+                        continue;
+                    }
+                    break;
+                default:
+                    //+, -, *, /가 아닌 그 외의 경우
+                    System.out.println("잘못된 연산자입니다.");
+                    continue;
+            }
+            System.out.println("결과: " + result);
+        }
     }
 }
