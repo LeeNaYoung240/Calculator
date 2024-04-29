@@ -19,6 +19,11 @@ public class App {
         System.out.println("두 번째 숫자를 입력하세요 : ");
         //Scanner 클래스의 객체인 sc를 사용하여 양의 정수를 secondNum 변수에 입력 받음
         int secondNum = sc.nextInt();
+        //사칙 연산 입력 메세지 출력
+        System.out.println("사칙연산 기호를 입력하세요 : " );
+        // Scanner 클래스의 객체인 sc에 next()를 사용하여 입력 다음에 오는 토큰을 읽음
+        // 읽어들인 문자열에서 첫 번째 문자를 추출하고 char 타입의 operator 변수에 저장
+        char operator = sc.next().charAt(0);
 
     }
 }
