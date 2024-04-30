@@ -44,5 +44,9 @@ public class Calculator {
     public void setArrList(ArrayList<Double> arrList){
         this.arrList = arrList;
     }
+    //remove 삭제 메서드 - 인덱스 첫 번째 값 삭제
+    public void removeResult(){
+        arrList.remove(0);
+    }
 
 }

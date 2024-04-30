@@ -59,6 +59,13 @@ public class App {
                 System.out.println("결과 : "+resultList);
                 System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
                 input = sc.next();
+                System.out.println("첫 번째 인덱스를 삭제하겠습니까 ? (remove 입력시 삭제) : ");
+                input = sc.next();
+                if(input.equals("remove")) {
+                    //Calculator 클래스의 removeResult() 메서드를 호출하여 컬렉션 리스트의 첫 번째 인덱스 삭제
+                    calculator.removeResult();
+                    System.out.println("첫 번째 인덱스 값이 삭제되었습니다.");
+                }
                 if(input.equals("exit")) {break;}
             } catch (BadInputException e) {
                 //에러 발생시 종료되게
