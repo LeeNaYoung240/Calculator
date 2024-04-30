@@ -7,78 +7,105 @@ public class App {
 
     public static void main(String[] args) throws BadInputException {
         //Calculator 클래스의 객체를 생성할 때 연산결과 리스트로 초기화
-        Calculator calculator = new Calculator(new ArrayList<Double>());
+        Calculator calculator = new Calculator(new ArrayList<Double>(), new ArrayList<Double>());
+
         //Scanner 클래스 객체 sc를 생성
         Scanner sc = new Scanner(System.in);
         char operator = ' ';
         int firstNum = 0;
         int secondNum = 0;
         String input = "";
+        int radius_circle = 0;
+
         //무한반복
+
         while (true) {
             //try : 일단 실행 , catch : 에러 객체가 가지고 있는 메서드 출력
-            try {
-                System.out.println("첫 번째 수를 입력하세요 : ");
-                //Scanner 클래스의 sc 객체의 hasNextInt() 메서드는 다음 토큰이 정수인지 여부 확인
-                if (sc.hasNextDouble()) {
-                    //첫 번째 정수를 입력 받음
-                    firstNum = sc.nextInt();
+            System.out.println("1. 사칙연산,  2. 원의 넓이 계산. 번호를 입력 : ");
+            input = sc.nextLine();
+
+            if(input.equals("1")) {
+                try {
+                    System.out.println("첫 번째 수를 입력하세요 : ");
+                    //Scanner 클래스의 sc 객체의 hasNextInt() 메서드는 다음 토큰이 정수인지 여부 확인
+                    if (sc.hasNextDouble()) {
+                        //첫 번째 정수를 입력 받음
+                        firstNum = sc.nextInt();
+                    }
+                    //정수가 아닐 때
+                    else {
+                        //BadInputException 예외 클래스 호출
+                        throw new BadInputException("정수가 아닙니다.");
+                    }
+                    System.out.println("두 번째 수를 입력하세요 : ");
+                    if (sc.hasNextDouble()) {
+                        //두 번째 정수를 입력 받음
+                        secondNum = sc.nextInt();
+                    }
+                    //수가 아닐 때
+                    else {
+                        //BadInputException 예외 클래스 호출
+                        throw new BadInputException("수가 아닙니다.");
+                    }
+                    System.out.println("연산자를 입력하세요 : ");
+                    //Scanner 클래스 객체의 sc에 next()를 사용하여 입력 다음에 오는 토큰을 읽음
+                    //읽어들인 문자열에서 첫 번째 문자를 추출하고 char 타입의 operator 변수에 저장
+                    operator = sc.next().charAt(0);
+                    //연산자가 나눗셈 연산자이고 두 번째 입력받는 수가 0이라면
+                    if (operator == '/' && secondNum == 0) {
+                        throw new BadInputException(); //예외 처리
+                    }
+                    // 연산자가 +, -, * , / 가 아니라면
+                    if (operator != '+' && operator != '-' && operator != '*' && operator != '/') {
+                        throw new BadInputException(); //예외처리
+                    }
+                    //calculator 변수가 참조하는 Calculator 클래스의 calculate 메서드 호출
+                    calculator.calculate(operator, firstNum, secondNum);
+                    //Calculator 클래스의 getArrList() 메서드를 호출하여 컬렉션 필드의 값을 가져옴
+                    List<Double> resultList = calculator.getArrList();
+                    //컬렉션 필드의 값 출력
+                    System.out.println("결과 : " + resultList);
+                    System.out.println("첫 번째 인덱스를 삭제하겠습니까 ? (remove 입력시 삭제)");
+                    input = sc.next();
+                    if (input.equals("remove")) {
+                        //Calculator 클래스의 removeResult() 메서드를 호출하여 컬렉션 리스트의 첫 번째 인덱스 삭제
+                        calculator.removeResult();
+                        System.out.println("첫 번째 인덱스 값이 삭제되었습니다.");
+                    }
+                    System.out.println("연산 결과를 조회하겠습니까 ? (inquiry 입력시 조회 )");
+                    input = sc.next();
+                    if (input.equals("inquiry")) {
+                        //Calculator 클래스의 inquiryResults() 메서드를 호출하여 리스트 조회
+                        calculator.inquiryResults();
+                    }
+                    System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
+                    input = sc.next();
+                    if (input.equals("exit")) {
+                        break;
+                    }
+                } catch (BadInputException e) {
+                    //에러 발생시 종료되게
+                    System.out.println(e.getMessage());
+                    break;
                 }
-                //정수가 아닐 때
-                else {
-                    //BadInputException 예외 클래스 호출
-                    throw new BadInputException("정수가 아닙니다.");
-                }
-                System.out.println("두 번째 수를 입력하세요 : ");
-                if (sc.hasNextDouble()) {
-                    //두 번째 정수를 입력 받음
-                    secondNum = sc.nextInt();
-                }
-                //수가 아닐 때
-                else {
-                    //BadInputException 예외 클래스 호출
-                    throw new BadInputException("수가 아닙니다.");
-                }
-                System.out.println("연산자를 입력하세요 : ");
-                //Scanner 클래스 객체의 sc에 next()를 사용하여 입력 다음에 오는 토큰을 읽음
-                //읽어들인 문자열에서 첫 번째 문자를 추출하고 char 타입의 operator 변수에 저장
-                operator = sc.next().charAt(0);
-                //연산자가 나눗셈 연산자이고 두 번째 입력받는 수가 0이라면
-                if (operator == '/' && secondNum == 0) {
-                    throw new BadInputException(); //예외 처리
-                }
-                // 연산자가 +, -, * , / 가 아니라면
-                if (operator != '+' && operator != '-' && operator != '*' && operator != '/') {
-                    throw new BadInputException(); //예외처리
-                }
-                //calculator 변수가 참조하는 Calculator 클래스의 calculate 메서드 호출
-                calculator.calculate(operator, firstNum, secondNum);
-                //Calculator 클래스의 getArrList() 메서드를 호출하여 컬렉션 필드의 값을 가져옴
-                List<Double> resultList = calculator.getArrList();
-                //컬렉션 필드의 값 출력
-                System.out.println("결과 : "+resultList);
-                System.out.println("첫 번째 인덱스를 삭제하겠습니까 ? (remove 입력시 삭제) : ");
-                input = sc.next();
-                if(input.equals("remove")) {
-                    //Calculator 클래스의 removeResult() 메서드를 호출하여 컬렉션 리스트의 첫 번째 인덱스 삭제
-                    calculator.removeResult();
-                    System.out.println("첫 번째 인덱스 값이 삭제되었습니다.");
-                }
-                System.out.println("연산 결과를 조회하겠습니까 ? (inquiry 입력시 조회 : )");
-                input = sc.next();
-                if(input.equals("inquiry")) {
-                    //Calculator 클래스의 inquiryResults() 메서드를 호출하여 리스트 조회
-                    calculator.inquiryResults();
-                }
+            }
+            else if(input.equals("2"))
+            {
+
+                System.out.println("반지름을 입력하세요 : ");
+                radius_circle = sc.nextInt();
+
+                System.out.println(calculator.calculateCircleArea(radius_circle));
+
                 System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
                 input = sc.next();
-                if(input.equals("exit")) {break;}
-            } catch (BadInputException e) {
-                //에러 발생시 종료되게
-                System.out.println(e.getMessage());
-                break;
+                if(input.equals("exit")) {
+                    break;
+                }
+
             }
         }
+
 
 
         //Level1-3
