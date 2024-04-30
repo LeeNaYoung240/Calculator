@@ -36,5 +36,13 @@ public class Calculator {
         //연산 결과값 반환
         return result;
     }
+    //Getter 메서드 - arrList 간접 접근 반환
+    public List<Double> getArrList() {
+        return arrList;
+    }
+    //Setter 메서드 - arrList 간접 접근 수정
+    public void setArrList(ArrayList<Double> arrList){
+        this.arrList = arrList;
+    }
 
 }

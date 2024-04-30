@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class App {
@@ -13,9 +14,10 @@ public class App {
         int firstNum = 0;
         int secondNum = 0;
         String input = "";
+        //무한반복
         while (true) {
+            //try : 일단 실행 , catch : 에러 객체가 가지고 있는 메서드 출력
             try {
-
                 System.out.println("첫 번째 수를 입력하세요 : ");
                 //Scanner 클래스의 sc 객체의 hasNextInt() 메서드는 다음 토큰이 정수인지 여부 확인
                 if (sc.hasNextDouble()) {
@@ -27,7 +29,6 @@ public class App {
                     //BadInputException 예외 클래스 호출
                     throw new BadInputException("정수가 아닙니다.");
                 }
-
                 System.out.println("두 번째 수를 입력하세요 : ");
                 if (sc.hasNextDouble()) {
                     //두 번째 정수를 입력 받음
@@ -38,8 +39,9 @@ public class App {
                     //BadInputException 예외 클래스 호출
                     throw new BadInputException("수가 아닙니다.");
                 }
-
                 System.out.println("연산자를 입력하세요 : ");
+                //Scanner 클래스 객체의 sc에 next()를 사용하여 입력 다음에 오는 토큰을 읽음
+                //읽어들인 문자열에서 첫 번째 문자를 추출하고 char 타입의 operator 변수에 저장
                 operator = sc.next().charAt(0);
                 //연산자가 나눗셈 연산자이고 두 번째 입력받는 수가 0이라면
                 if (operator == '/' && secondNum == 0) {
@@ -49,13 +51,19 @@ public class App {
                 if (operator != '+' && operator != '-' && operator != '*' && operator != '/') {
                     throw new BadInputException(); //예외처리
                 }
-                //calculator 변수가 참조하는 Calculator 객체의 calculate 메서드 호출
-                System.out.println("결과 : " + calculator.calculate(operator, firstNum, secondNum));
+                //calculator 변수가 참조하는 Calculator 클래스의 calculate 메서드 호출
+                calculator.calculate(operator, firstNum, secondNum);
+                //Calculator 클래스의 getArrList() 메서드를 호출하여 컬렉션 필드의 값을 가져옴
+                List<Double> resultList = calculator.getArrList();
+                //컬렉션 필드의 값 출력
+                System.out.println("결과 : "+resultList);
                 System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
                 input = sc.next();
                 if(input.equals("exit")) {break;}
             } catch (BadInputException e) {
+                //에러 발생시 종료되게
                 System.out.println(e.getMessage());
+                break;
             }
         }
 
