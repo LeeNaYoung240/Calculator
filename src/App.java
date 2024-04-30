@@ -1,12 +1,53 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class App {
-    /**
-     * 연산 결과 10개를 초과하는 경우 가장 먼저 저장된 결과 삭제, 새로운 연산 결과 저장되게
-     * @param args
-     */
+
     public static void main(String[] args) throws BadInputException {
+        //Calculator 클래스의 객체를 생성하여 해당 객체 참조
+        Calculator calculator = new Calculator();
+        //Scanner 클래스 객체 sc를 생성
+        Scanner sc = new Scanner(System.in);
+        String operator ="";
+        int firstNum = 0;
+        int secondNum = 0;
+
+        try {
+            System.out.println("연산자를 입력하세요 : ");
+            operator = sc.nextLine();
+
+            if (!operator.equals("+") && !operator.equals("-") && !operator.equals("*") && !operator.equals("/")) {
+                throw new BadInputException("잘못된 연산자입니다.");
+            }
+            System.out.println("첫 번째 정수를 입력하세요 : ");
+            //Scanner 클래스의 sc 객체의 hasNextInt() 메서드는 다음 토큰이 정수인지 여부 확인
+            if(sc.hasNextInt()) {
+                //첫 번째 정수를 입력 받음
+                firstNum = sc.nextInt();
+            }
+            //정수가 아닐 때
+            else{
+                //BadInputException 예외 클래스 호출
+                throw new BadInputException("정수가 아닙니다.");
+            }
+            System.out.println("두 번째 정수를 입력하세요 : ");
+            if(sc.hasNextInt()) {
+                //두 번째 정수를 입력 받음
+                secondNum = sc.nextInt();
+            }
+            //정수가 아닐 때
+            else{
+                //BadInputException 예외 클래스 호출
+                throw new BadInputException("정수가 아닙니다.");
+            }
+
+        } catch (BadInputException e) {
+            System.out.println(e.getMessage());
+        }
+        //calculator 변수가 참조하는 Calculator 객체의 calculate 메서드 호출
+        System.out.println("결과 : " + calculator.calculate(operator,firstNum,secondNum));
+
         //Level1-3
         /*
          *//*Sacnner 클래스 객체 생성  *//*
@@ -120,7 +161,7 @@ public class App {
             System.out.println("결과: " + result);
         }*/
         //level.1-6
-
+/*
 
         Scanner sc = new Scanner(System.in);
 
@@ -208,7 +249,7 @@ public class App {
             if (operator.equals("exit")) {
                 break;
             }
-        }
+        }*/
         //level1-7
 
       /*  Scanner sc = new Scanner(System.in);
