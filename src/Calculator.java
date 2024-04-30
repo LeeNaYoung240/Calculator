@@ -48,5 +48,10 @@ public class Calculator {
     public void removeResult(){
         arrList.remove(0);
     }
-
+    public void inquiryResults() {
+        for(Double val : arrList)
+        {
+            System.out.println(val);
+        }
+    }
 }

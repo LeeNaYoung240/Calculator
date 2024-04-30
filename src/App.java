@@ -57,8 +57,6 @@ public class App {
                 List<Double> resultList = calculator.getArrList();
                 //컬렉션 필드의 값 출력
                 System.out.println("결과 : "+resultList);
-                System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
-                input = sc.next();
                 System.out.println("첫 번째 인덱스를 삭제하겠습니까 ? (remove 입력시 삭제) : ");
                 input = sc.next();
                 if(input.equals("remove")) {
@@ -66,6 +64,14 @@ public class App {
                     calculator.removeResult();
                     System.out.println("첫 번째 인덱스 값이 삭제되었습니다.");
                 }
+                System.out.println("연산 결과를 조회하겠습니까 ? (inquiry 입력시 조회 : )");
+                input = sc.next();
+                if(input.equals("inquiry")) {
+                    //Calculator 클래스의 inquiryResults() 메서드를 호출하여 리스트 조회
+                    calculator.inquiryResults();
+                }
+                System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
+                input = sc.next();
                 if(input.equals("exit")) {break;}
             } catch (BadInputException e) {
                 //에러 발생시 종료되게
