@@ -11,21 +11,21 @@ public class Calculator {
         arrList = new ArrayList<>();
     }
     //반환타입을 double형으로 사칙연산 수행
-    public double calculate( String operator, int firstNumber, int secondNumber) throws BadInputException {
+    public double calculate(char operator, int firstNumber, int secondNumber) throws BadInputException {
         double result = 0;
-        if(!operator.equals("+") && !operator.equals("-") && !operator.equals("*") && !operator.equals("/")) {
+        if(operator!='+' && operator!='-' && operator!='*' && operator!='/') {
             throw new BadInputException("연산자가 아닙니다.");
         }
-        if(operator.equals("+")) {
+        if(operator=='+') {
             result = firstNumber + secondNumber;
         }
-        else if(operator.equals("-")) {
+        else if(operator=='-') {
             result = firstNumber - secondNumber;
         }
-        else if(operator.equals("*")) {
+        else if(operator=='*') {
             result = firstNumber * secondNumber;
         }
-        else if(operator.equals("/")) {
+        else if(operator=='/') {
             if(secondNumber == 0) {
                 throw new BadInputException("0은 입력될 수 없습니다.");
             }
