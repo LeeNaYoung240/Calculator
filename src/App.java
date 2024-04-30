@@ -120,82 +120,95 @@ public class App {
             System.out.println("결과: " + result);
         }*/
         //level.1-6
-/*
+
 
         Scanner sc = new Scanner(System.in);
 
-        int[] results = new int[10]; //연산 결과를 저장할 배열
-        int firstNum = 0; //첫 번째 입력 정수
-        int secondNum = 0; //두 번째 입력 정수
-        String operator; //연산자를 저장할 배열
-        int index = 0; //결과 배열 인덱스
-        //index가 10이 되기 전까지 무한 반복
-        while(true){
-        System.out.println("첫 번째 정수를 입력하세요 : ");
-        //Scanner 클래스의 sc 객체의 hasNextInt() 메서드는 다음 토큰이 정수인지 여부 확인
-        if (sc.hasNextInt()) {
-            //첫 번째 정수를 입력 받음
-            firstNum = sc.nextInt();
-        } else {
-            // 정수가 아닐 때
-            throw new BadInputException();
-        }
-        System.out.println("두 번째 정수를 입력하세요 : ");
-        if (sc.hasNextInt()) {
-            // 두 번째 정수를 입력 받음
-            secondNum = sc.nextInt();
-        } else {
-            // 정수가 아닐 때
-            throw new BadInputException();
-        }
-        System.out.println("연산자를 입력하세요 : ");
+        int[] results = new int[10]; // 연산 결과를 저장할 배열
+        int firstNum = 0; // 첫 번째 입력 정수
+        int secondNum = 0; // 두 번째 입력 정수
+        String operator; // 연산자를 저장할 변수
+        int index = 0; // 결과 배열 인덱스
+        int result = 0; // 계산된 결과를 저장할 변수
 
-        operator = sc.next();
-        switch (operator) {
-            case "+":
-                results[index] = firstNum + secondNum;
-                break;
-            case "-":
-                results[index] = firstNum - secondNum;
-                break;
-            case "*":
-                results[index] = firstNum * secondNum;
-                break;
-            case "/":
-                //두 번째 입력 받는 수가 0이 아닐 때 결과 수행
-                if (secondNum != 0) {
-                    results[index] = firstNum / secondNum;
-                } else {
-                    System.out.println("0으로 나눌 수 없습니다.");
-                    continue; // 다음 반복으로 넘어감
-                }
-                break;
-            default:
-                System.out.println("잘못된 연산자입니다.");
-                continue; // 다음 반복으로 넘어감
+// index가 10이 되기 전까지 무한 반복
+        while (true) {
+            System.out.println("첫 번째 정수를 입력하세요: ");
+            // Scanner 클래스의 sc 객체의 hasNextInt() 메서드는 다음 토큰이 정수인지 여부를 확인
+            if (sc.hasNextInt()) {
+                // 첫 번째 정수를 입력 받음
+                firstNum = sc.nextInt();
+            } else {
+                // 정수가 아닐 때
+                throw new BadInputException();
             }
-            System.out.println("결과 " + (index + 1) + " : " + results[index]);
-              //인덱스를 증가시켜야 인덱스 번호가 증가
-            index++;
-            //인덱스가 10을 초과하는 경우
-            if(index>=10)
-            {
-                //해당 안내메세지 출력
-                System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
-                //사용자로부터 문자열 한 줄을 입력 받음
-                //왜 ? : 더 계산하겠냐는 질문에 대답을 받기 위해,
+            System.out.println("두 번째 정수를 입력하세요: ");
+            if (sc.hasNextInt()) {
+                // 두 번째 정수를 입력 받음
+                secondNum = sc.nextInt();
+            } else {
+                // 정수가 아닐 때
+                throw new BadInputException();
+            }
+            System.out.println("연산자를 입력하세요: ");
 
-                operator = sc.next();
-                //exit 입력시 종료
-                if(operator.equals("exit"))
-                {
+            operator = sc.next();
+            switch (operator) {
+                case "+":
+                    result = firstNum + secondNum;
                     break;
-                }
-                //인덱스를 0으로 초기화시켜 results[0]으로 가게함
-                index = 0;
+                case "-":
+                    result = firstNum - secondNum;
+                    break;
+                case "*":
+                    result = firstNum * secondNum;
+                    break;
+                case "/":
+                    // 두 번째 입력 받는 수가 0이 아닐 때 결과를 수행
+                    if (secondNum != 0) {
+                        result = firstNum / secondNum;
+                    } else {
+                        System.out.println("0으로 나눌 수 없습니다.");
+                        continue; // 다음 반복으로 넘어감
+                    }
+                    break;
+                default:
+                    System.out.println("잘못된 연산자입니다.");
+                    continue; // 다음 반복으로 넘어감
             }
-        }*/
+            // 배열에 결과값을 저장시키고 인덱스를 증가시킴
+            results[index] = result;
+            index++;
 
+            // 배열의 인덱스 값이 10을 초과하는 경우일 때
+            if (index >= 10) {
+                //배열의 결과를 한칸씩 앞으로 이동
+                for (int i = 0; i < results.length - 1; i++) {
+                    results[i] = results[i + 1];
+                }
+                // 새로운 결과는 마지막 인덱스에 저장
+                results[9] = result;
+                // 인덱스가 9가 되면 다음 결과가 마지막 위치에 저장
+                index = 9; // 인덱스를 9로 설정
+            }
+
+            // 결과 출력
+            System.out.println("결과: ");
+            for (int i = 0; i < index; i++) {
+                System.out.println((i + 1) + ": " + results[i]);
+            }
+
+            // 해당 안내메세지 출력
+            System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
+            // 사용자로부터 문자열 한 줄을 입력 받음
+            // 왜 ? : 더 계산하겠냐는 질문에 대답을 받기 위해,
+
+            operator = sc.next();
+            // exit 입력시 종료
+            if (operator.equals("exit")) {
+                break;
+            }
+        }
         //level1-7
 
       /*  Scanner sc = new Scanner(System.in);
@@ -280,7 +293,9 @@ public class App {
                 break;
             }
         }*/
-        Scanner sc = new Scanner(System.in);
+        //level1-8
+
+       /* Scanner sc = new Scanner(System.in);
         int firstNum = 0; //첫 번째 입력 정수
         int secondNum = 0; //두 번째 입력 정수
         String operator; //연산자를 저장할 배열
@@ -371,6 +386,6 @@ public class App {
             if (operator.equals("exit")) {
                 break;
             }
-        }
+        }*/
     }
 }
