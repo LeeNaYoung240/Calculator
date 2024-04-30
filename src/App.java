@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class App {
     /**
-     * 연산 결과 10개를 저장할 수 있는 배열을 선언 및 생성하고 연산 결과를 저장
+     * 연산 결과 10개를 초과하는 경우 가장 먼저 저장된 결과 삭제, 새로운 연산 결과 저장되게
      * @param args
      */
     public static void main(String[] args) throws BadInputException {
@@ -125,9 +125,9 @@ public class App {
         int firstNum = 0; //첫 번째 입력 정수
         int secondNum = 0; //두 번째 입력 정수
         String operator; //연산자를 저장할 배열
-        int index = 0;
+        int index = 0; //결과 배열 인덱스
         //index가 10이 되기 전까지 무한 반복
-        while(index<10){
+        while(true){
         System.out.println("첫 번째 정수를 입력하세요 : ");
         //Scanner 클래스의 sc 객체의 hasNextInt() 메서드는 다음 토큰이 정수인지 여부 확인
         if (sc.hasNextInt()) {
@@ -171,9 +171,26 @@ public class App {
                 System.out.println("잘못된 연산자입니다.");
                 continue; // 다음 반복으로 넘어감
             }
-            System.out.println("결과 "+(index+1)+" : "+results[index]);
-            //인덱스를 증가시켜야 인덱스 번호가 증가
+            System.out.println("결과 " + (index + 1) + " : " + results[index]);
+              //인덱스를 증가시켜야 인덱스 번호가 증가
             index++;
+            //인덱스가 10을 초과하는 경우
+            if(index>=10)
+            {
+                //해당 안내메세지 출력
+                System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
+                //사용자로부터 문자열 한 줄을 입력 받음
+                //왜 ? : 더 계산하겠냐는 질문에 대답을 받기 위해,
+
+                operator = sc.next();
+                //exit 입력시 종료
+                if(operator.equals("exit"))
+                {
+                    break;
+                }
+                //인덱스를 0으로 초기화시켜 results[0]으로 가게함
+                index = 0;
+            }
         }
     }
 }
