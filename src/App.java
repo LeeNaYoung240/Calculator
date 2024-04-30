@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App {
@@ -118,6 +119,8 @@ public class App {
             }
             System.out.println("결과: " + result);
         }*/
+        //level.1-6
+/*
 
         Scanner sc = new Scanner(System.in);
 
@@ -190,6 +193,88 @@ public class App {
                 }
                 //인덱스를 0으로 초기화시켜 results[0]으로 가게함
                 index = 0;
+            }
+        }*/
+        Scanner sc = new Scanner(System.in);
+        int firstNum = 0; //첫 번째 입력 정수
+        int secondNum = 0; //두 번째 입력 정수
+        String operator; //연산자를 저장할 배열
+        //동적 배열로 크기가 가변적으로 늘어날 때 사용하는 리스트
+        ArrayList<Integer> result = new ArrayList<>();
+        //Scanner 클래스의 sc 객체의 hasNextInt() 메서드는 다음 토큰이 정수인지 여부 확인
+        while(true) {
+            System.out.println("첫 번째 정수를 입력하세요 : ");
+            if (sc.hasNextInt()) {
+                //첫 번째 정수를 입력 받음
+                firstNum = sc.nextInt();
+            } else {
+                // 정수가 아닐 때
+                throw new BadInputException();
+            }
+            System.out.println("두 번째 정수를 입력하세요 : ");
+            if (sc.hasNextInt()) {
+                // 두 번째 정수를 입력 받음
+                secondNum = sc.nextInt();
+            } else {
+                // 정수가 아닐 때
+                throw new BadInputException();
+            }
+            System.out.println("연산자를 입력하세요 : ");
+            //연산자를 입력하기 위해 사용자로부터 한 줄을 입력 받음
+            operator = sc.next();
+            int results =0;
+            switch (operator) {
+                case "+":
+                    result.add(firstNum + secondNum);
+                    break;
+                case "-":
+                    result.add(firstNum - secondNum);
+                    break;
+                case "*":
+                    result.add(firstNum * secondNum);
+                    break;
+                case "/":
+                    //연산자가 / 일 때 두 번째로 입력받는 수가 0이 아니라면
+                    if (secondNum != 0) {
+                        //결과 수행
+                        result.add(firstNum / secondNum);
+                    } else { //두 번째로 입력받는 수가 0일 때
+                        System.out.println("0으로 나눌 수 없습니다.");
+                        continue;
+                    }
+                    break;
+                default:
+                    //+, -, *, /아닌 그 외의 경우 처음부터 계속 진행
+                    System.out.println("잘못된 연산자입니다.");
+                    continue;
+            }
+
+            System.out.println("결과: " + result);
+            System.out.println("가장 먼저 저장된 연산 결과를 삭제하시겠습니까? (remove 입력 시 삭제)");
+            //해당 입력 메세지에 대한 결과를 사용자로부터 입력받음
+            operator = sc.next();
+            //remove 문자열을 입력했을 경우
+            if(operator.equals("remove"))
+            {
+                //result 리스트의 값이 존재한다면
+                if(!result.isEmpty())
+                {
+                    //result 리스트의 첫 번째 인덱스 값을 삭제
+                    int removeResult = result.remove(0);
+                    System.out.println("가장 먼저 저장된 결과인 "+removeResult+"가 삭제되었습니다.");
+                }
+                //result 리스트의 값이 존재하지 않는다면
+                else{
+                    System.out.println("저장된 결과가 없습니다.");
+                }
+            }
+            System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
+            //해당 입력 메세지에 대한 결과를 사용자로부터 입력받음
+            operator = sc.next();
+            //문자열 exit가 입력됐을 경우 종료
+            if(operator.equals("exit"))
+            {
+                break;
             }
         }
     }
