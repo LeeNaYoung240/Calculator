@@ -5,10 +5,10 @@ import java.util.Scanner;
 public class Calculator {
     //ArrayList 컬렉션 선언, Double타입으로 계산 결과 저장하기 위한 리스트
     private ArrayList<Double> arrList;
-    //기본 생성자
-    public Calculator() {
-        //arrList 생성
-        arrList = new ArrayList<>();
+
+    //연산결과를 저장하기 위한 리스트 초기화
+    public Calculator(ArrayList<Double> arrList) {
+        this.arrList = arrList;
     }
     //반환타입을 double형으로 사칙연산 수행
     public double calculate(char operator, int firstNumber, int secondNumber) throws BadInputException {

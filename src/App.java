@@ -6,8 +6,8 @@ import java.util.Scanner;
 public class App {
 
     public static void main(String[] args) throws BadInputException {
-        //Calculator 클래스의 객체를 생성하여 해당 객체 참조
-        Calculator calculator = new Calculator();
+        //Calculator 클래스의 객체를 생성할 때 연산결과 리스트로 초기화
+        Calculator calculator = new Calculator(new ArrayList<Double>());
         //Scanner 클래스 객체 sc를 생성
         Scanner sc = new Scanner(System.in);
         char operator = ' ';
