@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -5,7 +6,120 @@ import java.util.Scanner;
 
 public class App {
 
-    public static void main(String[] args) throws BadInputException {
+    public static void main(String[] args) throws Exception {
+        Scanner sc = new Scanner(System.in);
+        //Calculator 클래스 객체 선언
+        Calculator calculator;
+        //사칙연산 - (두 개의 수)과 원 넓이 - (반지름)를 구하기 위한 변수 선언
+        int firstNum, secondNum, radius_circle;
+        //사칙연산을 위한 변수 - 연산자
+        char operator=' ';
+        //종료를 처리하기 위한 변수
+        String input = "";
+
+        //입력 안내 메세지 - 선택하는 수에 따라 다른 기능 수행
+        System.out.println("1. 사칙연산, 2. 원의 넓이 계산합니다. 번호를 입력하세요 (1 or 2) : ");
+        //사용자로부터 정수 하나를 입력 받음
+        int num = sc.nextInt();
+        //1을 입력했을 때 사칙연산 기능을 수행
+        if(num == 1){
+            //무한반복, exit를 입력했을 때 종료시키기 위해 무한으로 반복 수행
+            while(true) {
+                //객체 생성 - ArithmeticCalculator 클래스 생성
+                calculator = new ArithmeticCalculator();
+                // 결과를 저장하는 리스트 초기화
+                calculator.setArrList();
+
+                //첫 번째 수를 입력하라는 안내 메세지
+                System.out.println("첫 번째 수를 입력하세요 : ");
+                //Scanner 클래스의 sc 객체의 hasNextInt() 메서드는 다음 토큰이 정수인지 여부 확인
+                if (sc.hasNextInt()) {
+                    //첫 번째 정수를 입력 받음
+                    firstNum = sc.nextInt();
+                }
+                //정수가 아닐 때
+                else {
+                    //BadInputException 예외 클래스 호출
+                    throw new BadInputException("정수가 아닙니다.");
+                }
+                //두 번째 수를 입력하라는 안내 메세지
+                System.out.println("두 번째 수를 입력하세요 : ");
+                if (sc.hasNextInt()) {
+                    //두 번째 정수를 입력 받음
+                    secondNum = sc.nextInt();
+                }
+                //수가 아닐 때
+                else {
+                    //BadInputException 예외 클래스 호출
+                    throw new BadInputException("수가 아닙니다.");
+                }
+                //연산자를 입력하라는 안내 메세지
+                System.out.println("연산자를 입력하세요 : ");
+                //Scanner 클래스 객체의 sc에 next()를 사용하여 입력 다음에 오는 토큰을 읽음
+                //읽어들인 문자열에서 첫 번째 문자를 추출하고 char 타입의 operator 변수에 저장
+                operator = sc.next().charAt(0);
+                //연산자가 나눗셈 연산자이고 두 번째 입력받는 수가 0이라면
+                if (operator == '/' && secondNum == 0) {
+                    throw new BadInputException(); //예외 처리
+                }
+                // 연산자가 +, -, * , / 가 아니라면
+                if (operator != '+' && operator != '-' && operator != '*' && operator != '/') {
+                    throw new BadInputException("+, -, *, / 중에 하나를 입력하세요"); //예외처리
+                }
+                //calculator 객체가 ArithmeticCalculator 클래스의 인스턴스인지 확인
+                //형변환 -> ArithmeticCalculator 클래스의 메서드 호출
+                ((ArithmeticCalculator) calculator).setVal(firstNum, secondNum, operator);
+                //calculator 변수가 참조하는 Calculator 클래스의 calculate 메서드 호출
+                System.out.println("결과 : " + calculator.calculate());
+                //exit 입력시 종료하겠다는 안내메세지 출력
+                System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
+                //사용자로부터 한줄을 입력받음
+                input = sc.next();
+                //문자열 exit 입력시 종료
+                if (input.equals("exit")) {
+                    break;
+                }
+            }
+
+        }
+        //2를 입력했을 때 사칙연산 기능을 수행
+        else if(num == 2){
+            //무한 반복 - exit 입력시 탈출 시키기 위해
+            while(true) {
+                //객체 생성 - CircleCalculator 클래스 생성
+                calculator = new CircleCalculator();
+                // 결과를 저장하는 리스트 초기화
+                calculator.setArrList();
+                //반지름을 입력하라는 안내메시지
+                System.out.println("반지름을 입력하세요 : ");
+                //Scanner 클래스의 sc 객체의 hasNextInt() 메서드는 다음 토큰이 정수인지 여부 확인
+                if (sc.hasNextInt()) {
+                    //첫 번째 정수를 입력 받음
+                    radius_circle = sc.nextInt();
+                }
+                //정수가 아닐 때
+                else {
+                    //BadInputException 예외 클래스 호출
+                    throw new BadInputException("정수가 아닙니다.");
+                }
+                //calculator 객체가 CircleCalculator 클래스의 인스턴스인지 확인
+                //형변환 -> CircleCalculator 클래스의 메서드 호출
+                ((CircleCalculator) calculator).setVal(radius_circle);
+                System.out.println("결과 : " +calculator.calculate());
+
+                System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
+                input = sc.next();
+                if (input.equals("exit")) {
+                    break;
+                }
+            }
+        }
+        else
+        {
+            throw new BadInputException("1,2 둘중에 선택하세요.");
+        }
+
+        /*
         //Calculator 클래스의 객체를 생성할 때 연산결과 리스트로 초기화
         Calculator calculator = new Calculator(new ArrayList<Double>(), new ArrayList<Double>());
 
@@ -488,5 +602,6 @@ public class App {
                 break;
             }
         }*/
+
     }
 }
