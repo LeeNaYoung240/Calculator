@@ -2,19 +2,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-//추상 클래스 - 객체 직접 생성 X, 상속을 통해 하위 클래스에서 기능 확장하고 구현
+
 public abstract class Calculator {
-    //ArrayList 컬렉션 선언, Double 타입으로 사칙연산 계산 결과 저장하기 위한 리스트
+
     public ArrayList<Double> arrList;
-    // 추상 클래스에서 공통 동작 정의, 하위 클래스에서 구체화하여 각각의 동작 구현
-    //calculate() 추상 메서드 선언 - 하위 클래스에서 해당 메서드 반드시 구현
     public abstract double calculate() throws BadInputException;
-    // setArrList() 추상 메서드 선언, 하위 클래스에서 반드시 구현
-    public abstract void setArrList();
-    //getArrList() 추상 메서드 선언, 하위 클래스에서 반드시 구현
+    public abstract void resetList();
     public abstract List<Double> getArrList();
 
+}
 
+//public abstract double operate(int firstNum, int secondNum) throws BadInputException;
 
     /*
     //ArrayList 컬렉션 선언, Double 타입으로 사칙연산 계산 결과 저장하기 위한 리스트
@@ -93,5 +91,3 @@ public abstract class Calculator {
     public void setCircleAreaList(ArrayList<Double> circleAreaList) {
         this.circleList = circleAreaList;
     }*/
-
-}
